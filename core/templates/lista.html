@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lojinha de Brinquedos</title>
+</head>
+<body>
+<h1>Brinquedos disponíveis</h1>
+<ul>
+    {% for b in brinquedos %}
+    <li>{{ b.nome }} — R$ {{ b.preco }} ({{ b.quantidade }} em estoque)</li>
+    {% empty %}
+    <li>Não há brinquedos cadastrados ainda.</li>
+    {% endfor %}
+</ul>
+</body>
+</html>
