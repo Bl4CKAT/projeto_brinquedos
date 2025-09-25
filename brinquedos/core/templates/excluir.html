@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Excluir brinquedo</title>
+</head>
+<body>
+<h1>Tem certeza que deseja excluir "{{ brinquedo.nome }}"?</h1>
+
+<form method="post">
+  {% csrf_token %}
+  <button type="submit">Sim, excluir</button>
+</form>
+
+<p><a href="{% url 'lista_brinquedos' %}">Cancelar</a></p>
+</body>
+</html>

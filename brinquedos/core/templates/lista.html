@@ -1,16 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
     <title>Lojinha de Brinquedos</title>
 </head>
 <body>
-<h1>Brinquedos disponíveis</h1>
-<ul>
-    {% for b in brinquedos %}
-    <li>{{ b.nome }} — R$ {{ b.preco }} ({{ b.quantidade }} em estoque)</li>
-    {% empty %}
-    <li>Não há brinquedos cadastrados ainda.</li>
-    {% endfor %}
-</ul>
+    <h1>Adicionar novo brinquedo</h1>
+
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div>
+            {{ form.nome.label_tag }}<br>
+            {{ form.nome }}<br>
+            {{ form.nome.errors }}
+        </div>
+        <div>
+            {{ form.preco.label_tag }}<br>
+            {{ form.preco }}<br>
+            {{ form.preco.errors }}
+        </div>
+        <div>
+            {{ form.quantidade.label_tag }}<br>
+            {{ form.quantidade }}<br>
+            {{ form.quantidade.errors }}
+        </div>
+        <button type="submit">Adicionar brinquedo</button>
+    </form>
+
+    <hr>
+
+    <h1>Brinquedos disponíveis</h1>
+    <ul>
+        {% for b in brinquedos %}
+            <li>
+                {{ b.nome }} — R$ {{ b.preco }} ({{ b.quantidade }} em estoque)
+                [<a href="{% url 'editar_brinquedo' b.id %}">Editar</a>]
+                [<a href="{% url 'excluir_brinquedo' b.id %}">Excluir</a>]
+            </li>
+        {% empty %}
+            <li>Não há brinquedos cadastrados ainda.</li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
