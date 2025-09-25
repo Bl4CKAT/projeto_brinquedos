@@ -35,4 +35,4 @@ def excluir_brinquedo(request, id):
     if request.method == 'POST':
         brinquedo.delete()
         return redirect('lista_brinquedos')
-    return render(reuqest, 'exluir.html', {'brinquedo': brinquedo})
+    return render(request, 'excluir.html', {'brinquedo': brinquedo})
