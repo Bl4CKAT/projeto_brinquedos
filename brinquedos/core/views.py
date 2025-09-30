@@ -9,7 +9,7 @@ def lista_brinquedos(request):
         form = BrinquedoForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('lista_brinquedos')
+            return redirect('/?added=true')
 
     else:
         form = BrinquedoForm()
