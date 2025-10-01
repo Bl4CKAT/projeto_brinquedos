@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 from .models import Brinquedo
 from .forms import BrinquedoForm
 
+@login_required(login_url='login')
 def lista_brinquedos(request):
     brinquedos = Brinquedo.objects.all()
 
@@ -9,7 +12,7 @@ def lista_brinquedos(request):
         form = BrinquedoForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/?added=true')
+            return redirect(reverse('lista_brinquedos') + '?added=true')
 
     else:
         form = BrinquedoForm()

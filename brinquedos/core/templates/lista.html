@@ -43,8 +43,12 @@
         {% empty %}
             <li>Não há brinquedos cadastrados ainda.</li>
         {% endfor %}
+
+            <li>
+                <a href="{% url 'logout' %"}>Sair</a>
+            </li>
     </ul>
 
-<script src="{% static 'loja/script.js' %}"></script>
+<script src="{% static 'core/script.js' %}"></script>
 </body>
 </html>
