@@ -7,6 +7,17 @@
     <link rel="stylesheet" href="{% static 'core/style.css' %}">
 </head>
 <body>
+{% if user.is_authenticated %}
+    <p>
+        Olá, {{ user.username }}
+        <a href="{% url 'logout' %}">Sair</a>
+    </p>
+{% else %}
+    <p>
+        <a href="{% url 'login' %}">Entrar</a>
+    </p>
+{% endif %}
+
     <h1>Adicionar novo brinquedo</h1>
 
     <form method="post" novalidate>
@@ -43,10 +54,6 @@
         {% empty %}
             <li>Não há brinquedos cadastrados ainda.</li>
         {% endfor %}
-
-            <li>
-                <a href="{% url 'logout' %"}>Sair</a>
-            </li>
     </ul>
 
 <script src="{% static 'core/script.js' %}"></script>
