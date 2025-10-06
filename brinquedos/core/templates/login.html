@@ -14,5 +14,11 @@
     {{ form.as_p }}
     <button type="submit">Entrar</button>
 </form>
+
+<h1>Não tem conta?</h1>
+<form method="post" action="{% url 'registrar' %}">
+    {% csrf_token %}
+    <button type="submit">Registrar</button>
+</form>
 </body>
 </html>
