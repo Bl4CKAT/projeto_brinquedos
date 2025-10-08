@@ -1,17 +1,54 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Registre-se</title>
-    <link rel="stylesheet" href="{% static 'core/style.css' %}">
+    <title>Registre-se na Lojinha de Brinquedos</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive;
+            background-color: #fff9e6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+            width: 300px;
+        }
+        h2 {
+            text-align: center;
+            color: #ff66a3;
+        }
+        button {
+            background-color: #ff66a3;
+            color: white;
+            border: none;
+            padding 10px;
+            width: 100%;
+            border-radius: 10px;
+            cursor: pointer;
+            front-weight: bold;
+        }
+        button:hover {
+            background-color: #ff3385;
+        }
+    </style>
 </head>
 <body>
-    <h2>Criar Conta</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Registrar</button>
-    </form>
+    <div class="card">
+        <h2>Crie sua conta</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Registrar</button>
+        </form>
+        <p style="text-align:center; margin-top:10px;">
+            Já tem conta? <a href="{% url 'login' %}">Entrar</a>
+        </p>
+    </div>
 </body>
 </html>

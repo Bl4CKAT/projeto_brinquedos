@@ -1,8 +1,11 @@
-from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from .models import Brinquedo
 from .forms import BrinquedoForm
+from django.contrib import messages
+from django.shortcuts import render, redirect, get_object_or_404
+from .forms import FormRegistro
+from django.contrib.auth.models import User
 
 @login_required(login_url='login')
 def lista_brinquedos(request):
@@ -19,6 +22,18 @@ def lista_brinquedos(request):
 
     return render(request, "lista.html", {"brinquedos": brinquedos, "form": form})
 
+def registrar_usuario(request):
+    if request.method == 'POST':
+        form = FormRegistro(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Conta criada com sucesso!')
+            return redirect('login')
+
+        else:
+            form = FormRegistro()
+
+        return render(request, 'registro.html', {'form': form})
 
 def editar_brinquedo(request, id):
     brinquedo = get_object_or_404(Brinquedo, id=id)
