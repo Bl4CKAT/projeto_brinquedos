@@ -5,7 +5,18 @@ from .forms import BrinquedoForm
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import FormRegistro
-from django.contrib.auth.models import User
+from django.contrib.auth import logout
+from django.contrib.auth.views import LoginView
+
+class LoginPersonalizado(LoginView):
+    template_name: 'login.html'
+
+    def form_valid(self, form):
+        """Quando o Login for bem sucedido apresentar mensagem de boas vindas"""
+        response = super().form_valid(form)
+        usuario = self.request.user
+        messages.success(self.request, f"Bem vindo de volta, {usuario.username}!")
+        return response
 
 @login_required(login_url='login')
 def lista_brinquedos(request):
@@ -34,6 +45,11 @@ def registrar_usuario(request):
             form = FormRegistro()
 
         return render(request, 'registro.html', {'form': form})
+
+def sair(request):
+    logout(request)
+    messages.success(request,'Você saiu com sucesso!')
+    return redirect('login')
 
 def editar_brinquedo(request, id):
     brinquedo = get_object_or_404(Brinquedo, id=id)

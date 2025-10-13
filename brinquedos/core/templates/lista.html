@@ -5,9 +5,87 @@
     <meta charset="utf-8">
     <title>Lojinha de Brinquedos</title>
     <link rel="stylesheet" href="{% static 'core/style.css' %}">
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive;
+            background: linear-gradient(135deg, #ffd1dc, #fff9c4, #d1f7ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 320px;
+            text-align: center;
+            animation: pop 0.6s ease;
+        }
+        @keyframes pop {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        h2 {
+            color: #ff66a3;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            outline: none;
+            font-size: 15px;
+        }
+        button {
+            background-color: #ff66a3;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #ff3385;
+        }
+        a {
+            color: #ff66a3;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .msg {
+            background:#d4edda;
+            border:1px solid #c3e6cb;
+            color:#155724;
+            padding:10px;
+            border-radius:10px;
+            margin-bottom:15px;
+        }
+    </style>
 </head>
 <body>
 {% if user.is_authenticated %}
+
+{% if messages %}
+    {% for message in messages %}
+        <div style="background:#d4edda; border:1px solid #c3e6cb; color:#155724; padding:10px; border-radius:8px; margin-bottom:10px;">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
     <p>
         Olá, {{ user.username }}
         <form method="post" action="{% url 'logout' %}">
@@ -61,4 +139,10 @@
 
 <script src="{% static 'core/script.js' %}"></script>
 </body>
+<script>
+    setTimeout(() => {
+        const msg = document.querySelector('div[style*="background:#d4edda"]');
+        if (msg) msg.style.display = 'none';
+    }, 5000); // 3 segundos de duração da mensagem
+</script>
 </html>
